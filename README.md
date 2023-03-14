@@ -27,9 +27,8 @@ The Bank Management System is a software application designed to handle various 
 The code is organized into the following functions:
 
 - `__init__(self, master)` : This function initializes the BankSystem object with the specified parameters, sets the title and geometry of the main window, and creates the "Create Account" and "Login" frames.
-- `create_account()` : This function creates a new account with the name, age, salary, and PIN entered by the user in the corresponding Entry widgets. It adds the account details to a dictionary and saves the dictionary to a file using the `pickle` module.
+- `create_account()` : This function creates a new account with the name, age, salary, and PIN entered by the user in the corresponding Entry widgets.
 - `login()` : This function validates the entered PIN against the saved account details and displays the account information if the PIN is correct.
-- `load_accounts()` : This function loads the saved account details from the file using the `pickle` module and returns the dictionary.
 
 ### The code also defines the following labels and buttons for the game:
 
