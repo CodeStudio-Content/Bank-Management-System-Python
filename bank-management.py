@@ -9,56 +9,76 @@ class BankSystem:
         self.master.geometry("400x300")
         
         # Create Account Frame
-        self.create_account_frame = Frame(self.master)
-        self.create_account_frame.pack()
-        self.name_label = Label(self.create_account_frame, text="Name:")
+        self.create_account_frame = Frame(self.master, bg='#F0F0F0')
+        self.create_account_frame.pack(pady=20)
+
+        # Labels
+        self.name_label = Label(self.create_account_frame, text="Name:", font=('Arial', 12), bg='#F0F0F0')
         self.name_label.grid(row=0, column=0, padx=10, pady=10)
-        self.name_entry = Entry(self.create_account_frame)
-        self.name_entry.grid(row=0, column=1, padx=10, pady=10)
-        self.age_label = Label(self.create_account_frame, text="Age:")
+        self.age_label = Label(self.create_account_frame, text="Age:", font=('Arial', 12), bg='#F0F0F0')
         self.age_label.grid(row=1, column=0, padx=10, pady=10)
-        self.age_entry = Entry(self.create_account_frame)
-        self.age_entry.grid(row=1, column=1, padx=10, pady=10)
-        self.salary_label = Label(self.create_account_frame, text="Salary:")
+        self.salary_label = Label(self.create_account_frame, text="Salary:", font=('Arial', 12), bg='#F0F0F0')
         self.salary_label.grid(row=2, column=0, padx=10, pady=10)
-        self.salary_entry = Entry(self.create_account_frame)
-        self.salary_entry.grid(row=2, column=1, padx=10, pady=10)
-        self.pin_label = Label(self.create_account_frame, text="PIN:")
+        self.pin_label = Label(self.create_account_frame, text="PIN:", font=('Arial', 12), bg='#F0F0F0')
         self.pin_label.grid(row=3, column=0, padx=10, pady=10)
-        self.pin_entry = Entry(self.create_account_frame, show="*")
+
+        # Entries
+        self.name_entry = Entry(self.create_account_frame, font=('Arial', 12), bg='#FFFFFF', relief='solid', borderwidth=1)
+        self.name_entry.grid(row=0, column=1, padx=10, pady=10)
+        self.age_entry = Entry(self.create_account_frame, font=('Arial', 12), bg='#FFFFFF', relief='solid', borderwidth=1)
+        self.age_entry.grid(row=1, column=1, padx=10, pady=10)
+        self.salary_entry = Entry(self.create_account_frame, font=('Arial', 12), bg='#FFFFFF', relief='solid', borderwidth=1)
+        self.salary_entry.grid(row=2, column=1, padx=10, pady=10)
+        self.pin_entry = Entry(self.create_account_frame, show="*", font=('Arial', 12), bg='#FFFFFF', relief='solid', borderwidth=1)
         self.pin_entry.grid(row=3, column=1, padx=10, pady=10)
-        self.create_account_button = Button(self.create_account_frame, text="Create Account", command=self.create_account)
-        self.create_account_button.grid(row=4, column=1, padx=10, pady=10)
+
+        # Create account button
+        self.create_account_button = Button(self.create_account_frame, text="Create Account", font=('Arial', 12), bg='#4CAF50', fg='#FFFFFF', activebackground='#2E8B57', activeforeground='#FFFFFF', relief='raised', borderwidth=0, command=self.create_account)
+        self.create_account_button.grid(row=4, column=1, pady=20)
+
+
         
         # Login Frame
-        self.login_frame = Frame(self.master)
-        self.login_frame.pack()
-        self.login_pin_label = Label(self.login_frame, text="PIN:")
+        self.login_frame = Frame(self.master, bg="#FFFFFF")
+        self.login_frame.pack(pady=20)
+        self.login_pin_label = Label(self.login_frame, text="PIN:", font=("Arial", 14), bg="#FFFFFF")
         self.login_pin_label.grid(row=0, column=0, padx=10, pady=10)
-        self.login_pin_entry = Entry(self.login_frame, show="*")
+        self.login_pin_entry = Entry(self.login_frame, show="*", width=30, font=("Arial", 14))
         self.login_pin_entry.grid(row=0, column=1, padx=10, pady=10)
-        self.login_button = Button(self.login_frame, text="Login", command=self.login)
+        self.login_button = Button(self.login_frame, text="Login", command=self.login, font=('Arial', 12), bg='#4CAF50', fg='#FFFFFF', activebackground='#2E8B57', activeforeground='#FFFFFF', relief='raised', borderwidth=0)
         self.login_button.grid(row=1, column=1, padx=10, pady=10)
         self.master.bind('<Return>', self.login) # Allow login with "Enter" key
         
         # User Details Frame
         self.user_details_frame = Frame(self.master)
-        self.name_label2 = Label(self.user_details_frame, text="Name:")
-        self.name_label2.grid(row=0, column=0, padx=10, pady=10)
-        self.age_label2 = Label(self.user_details_frame, text="Age:")
-        self.age_label2.grid(row=1, column=0, padx=10, pady=10)
-        self.salary_label2 = Label(self.user_details_frame, text="Salary:")
-        self.salary_label2.grid(row=2, column=0, padx=10, pady=10)
-        self.current_balance_label = Label(self.user_details_frame, text="Current Balance:")
-        self.current_balance_label.grid(row=3, column=0, padx=10, pady=10)
-        self.view_transaction_button = Button(self.user_details_frame, text="View Transaction Log", command=self.view_transaction_log)
-        self.view_transaction_button.grid(row=4,column=1, padx=10, pady=10)
-        self.deposit_button = Button(self.user_details_frame, text="Deposit", command=self.deposit)
-        self.deposit_button.grid(row=5, column=0, padx=10, pady=10)
-        self.withdraw_button = Button(self.user_details_frame, text="Withdraw", command=self.withdraw)
-        self.withdraw_button.grid(row=5, column=1, padx=10, pady=10)
-        self.logout_button = Button(self.user_details_frame, text="Logout", command=self.logout)
-        self.logout_button.grid(row=6, column=1, padx=10, pady=10)
+
+        # Labels
+        
+        label_style = {"fg": "green", "font": ("Calibri", 14)}
+
+        self.name_label2 = Label(self.user_details_frame, text="Name:", **label_style)
+        self.name_label2.grid(row=0, column=1, padx=10, pady=10)
+
+        self.age_label2 = Label(self.user_details_frame, text="Age:", **label_style)
+        self.age_label2.grid(row=1, column=1, padx=10, pady=10)
+
+        self.salary_label2 = Label(self.user_details_frame, text="Salary:", **label_style)
+        self.salary_label2.grid(row=2, column=1, padx=10, pady=10)
+
+        self.current_balance_label = Label(self.user_details_frame, text="Current Balance:", **label_style)
+        self.current_balance_label.grid(row=3, column=1, padx=10, pady=10)
+
+
+        # Buttons
+        self.view_transaction_button = Button(self.user_details_frame, text="View Transaction Log", command=self.view_transaction_log, bg="green", fg="white")
+        self.view_transaction_button.grid(row=4, column=0, padx=10, pady=10)
+        self.deposit_button = Button(self.user_details_frame, text="Deposit", command=self.deposit, bg="yellow", fg="black")
+        self.deposit_button.grid(row=4, column=1, padx=10, pady=10)
+        self.withdraw_button = Button(self.user_details_frame, text="Withdraw", command=self.withdraw, bg="orange", fg="white")
+        self.withdraw_button.grid(row=4, column=2, padx=10, pady=10)
+        self.logout_button = Button(self.user_details_frame, text="Logout", command=self.logout, bg="red", fg="white")
+        self.logout_button.grid(row=4, column=3, padx=10, pady=10)
+
 
         # Initialize user data
         self.name = ""
@@ -235,3 +255,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
