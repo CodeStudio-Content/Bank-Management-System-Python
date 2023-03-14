@@ -1,7 +1,14 @@
 <h1 align="center"> Bank Management System 🏦 </h1>
 
+
+|![Screenshot from 2023-03-14 14-05-57](https://user-images.githubusercontent.com/77020164/225007718-f99408d1-5e36-4668-bd47-b1008c3507f9.png)  | ![Screenshot from 2023-03-14 14-17-29](https://user-images.githubusercontent.com/77020164/225007866-fae033ba-1696-4d02-9015-8d700f87faa0.png) | ![Screenshot from 2023-03-14 14-20-59](https://user-images.githubusercontent.com/77020164/225008777-c26f5e63-9e6e-4eb6-bc9b-000de56d93aa.png)
+|-|-|-|
+| ![Screenshot from 2023-03-13 23-57-56](https://user-images.githubusercontent.com/77020164/225008029-14255003-ea79-4117-ac58-babd435b4d1a.png) | ![Screenshot from 2023-03-13 23-58-53](https://user-images.githubusercontent.com/77020164/225008278-2c693b5d-3236-476c-903a-15a244e18a32.png) | ![Screenshot from 2023-03-13 23-58-10](https://user-images.githubusercontent.com/77020164/225008123-0398e399-1fee-4dbb-91e9-13ecc9b2f9a4.png) 
+
+
 ## About
 The Bank Management System is a software application designed to handle various banking activities such as account creation, deposit, withdrawal, money transfer, account balance inquiry, and transaction history. It provides a user-friendly interface to customers and bank employees to manage their banking operations efficiently.
+
 
 
 
