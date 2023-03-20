@@ -2,11 +2,14 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import simpledialog
 
+
 class BankSystem:
     def __init__(self, master):
         self.master = master
         self.master.title("Bank Management System")
         self.master.geometry("400x300")
+        
+        self.users = {}
         
         # Create Account Frame
         self.create_account_frame = Frame(self.master, bg='#F0F0F0')
@@ -52,8 +55,7 @@ class BankSystem:
         # User Details Frame
         self.user_details_frame = Frame(self.master)
 
-        # Labels
-        
+        # Labels        
         label_style = {"fg": "green", "font": ("Calibri", 14)}
 
         self.name_label2 = Label(self.user_details_frame, text="Name:", **label_style)
@@ -65,6 +67,7 @@ class BankSystem:
         self.salary_label2 = Label(self.user_details_frame, text="Salary:", **label_style)
         self.salary_label2.grid(row=2, column=1, padx=10, pady=10)
 
+        
         self.current_balance_label = Label(self.user_details_frame, text="Current Balance:", **label_style)
         self.current_balance_label.grid(row=3, column=1, padx=10, pady=10)
 
@@ -79,7 +82,6 @@ class BankSystem:
         self.logout_button = Button(self.user_details_frame, text="Logout", command=self.logout, bg="red", fg="white")
         self.logout_button.grid(row=4, column=3, padx=10, pady=10)
 
-
         # Initialize user data
         self.name = ""
         self.age = ""
@@ -87,13 +89,19 @@ class BankSystem:
         self.pin = ""
         self.current_balance = 0
         self.transaction_log = []
-        
+
     def create_account(self):
         # Get user input
         name = self.name_entry.get()
         age = self.age_entry.get()
         salary = self.salary_entry.get()
         pin = self.pin_entry.get()
+        
+        # Create a dictionary to store the user's data
+        user_data = {'name': name, 'age': age, 'salary': salary, 'pin': pin, 'balance': 0}
+
+        # Add the user's data to the users dictionary
+        self.users[pin] = user_data
         
         # Validate input
         if not name or not age or not salary or not pin:
@@ -130,34 +138,36 @@ class BankSystem:
         self.current_balance_label.config(text="Current Balance: " + str(self.current_balance))
         
         # Show user details frame
-        self.create_account_frame.destroy()
+        self.create_account_frame.pack_forget()
         self.login_frame.pack_forget()
         self.user_details_frame.pack()
-
-
+    
+        
     def login(self, event=None):
-        # Get user input
+        # Get the user's PIN from the login entry widget
         pin = self.login_pin_entry.get()
-        
-        # Validate input
-        if not pin.isdigit() or len(pin) != 4:
-            messagebox.showerror("Error", "Invalid PIN!")
-            return
-        
-        # Check PIN
-        if pin != self.pin:
-            messagebox.showerror("Error", "Invalid PIN!")
-            return
-        
-        # Show user details
-        self.name_label2.config(text="Name: " + self.name)
-        self.age_label2.config(text="Age: " + self.age)
-        self.salary_label2.config(text="Salary: " + self.salary)
-        self.current_balance_label.config(text="Current Balance: " + str(self.current_balance))
-        
-        # Show user details frame
-        self.login_frame.pack_forget()
-        self.user_details_frame.pack()
+
+        # Check if the user exists in the users dictionary
+        if pin in self.users:
+            # Set the current user data to the user's dictionary
+            self.current_user_data = self.users[pin]
+
+            # Show the user details frame and update the labels
+            self.user_details_frame.pack(pady=20)
+
+            self.name_label2['text'] = f"Name: {self.current_user_data['name']}"
+            self.age_label2['text'] = f"Age: {self.current_user_data['age']}"
+            self.salary_label2['text'] = f"Salary: {self.current_user_data['salary']}"
+            self.current_balance_label['text'] = f"Current Balance: {self.current_user_data['balance']}"    
+            
+            # pack forget login frame 
+            self.login_frame.pack_forget()
+            self.create_account_frame.pack_forget()
+
+        else:
+            # Show an error message box if the user does not exist
+            messagebox.showerror("Error", "Invalid PIN")
+    
     
     def deposit(self):
         # Get user input
@@ -180,6 +190,7 @@ class BankSystem:
         # Add transaction to transaction log
         transaction = "Deposit: +" + amount + ", New Balance: " + str(self.current_balance)
         self.transaction_log.append(transaction)
+        self.users[pin]['balance'] = self.current_balance
 
     def withdraw(self):
         # Get user input
@@ -206,6 +217,7 @@ class BankSystem:
         # Add transaction to transaction log
         transaction = "Withdraw: -" + amount + ", New Balance: " + str(self.current_balance)
         self.transaction_log.append(transaction)
+        self.users[pin]['balance'] = self.current_balance
         
     def view_transaction_log(self):
         # Create transaction log window
@@ -222,11 +234,12 @@ class BankSystem:
         # Create transaction log listbox
         transaction_log_listbox = Listbox(transaction_log_frame, width=50)
         transaction_log_listbox.grid(row=1, column=0, padx=10, pady=10)
+        
 
         # Insert transactions into listbox
         for transaction in self.transaction_log:
             transaction_log_listbox.insert(END, transaction)
-            
+
     def logout(self):
         # Clear user data
         self.name = ""
@@ -241,6 +254,8 @@ class BankSystem:
         
         # Show login frame
         self.user_details_frame.pack_forget()
+        
+        self.create_account_frame.pack(pady=20)
         self.login_frame.pack()
 
 def main():
@@ -255,4 +270,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
