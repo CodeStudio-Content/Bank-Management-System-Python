@@ -39,17 +39,21 @@ class BankSystem:
         self.create_account_button = Button(self.create_account_frame, text="Create Account", font=('Arial', 12), bg='#4CAF50', fg='#FFFFFF', activebackground='#2E8B57', activeforeground='#FFFFFF', relief='raised', borderwidth=0, command=self.create_account)
         self.create_account_button.grid(row=4, column=1, pady=20)
 
-
-        
         # Login Frame
         self.login_frame = Frame(self.master, bg="#FFFFFF")
         self.login_frame.pack(pady=20)
+        self.login_name_label = Label(self.login_frame, text="Name:", font=("Arial", 14), bg="#FFFFFF")
+        self.login_name_label.grid(row=0, column=0, padx=10, pady=10)
+        self.login_name_entry = Entry(self.login_frame, width=30, font=("Arial", 14))
+        self.login_name_entry.grid(row=0, column=1, padx=10, pady=10)
         self.login_pin_label = Label(self.login_frame, text="PIN:", font=("Arial", 14), bg="#FFFFFF")
-        self.login_pin_label.grid(row=0, column=0, padx=10, pady=10)
+        self.login_pin_label.grid(row=1, column=0, padx=10, pady=10)
         self.login_pin_entry = Entry(self.login_frame, show="*", width=30, font=("Arial", 14))
-        self.login_pin_entry.grid(row=0, column=1, padx=10, pady=10)
+        self.login_pin_entry.grid(row=1, column=1, padx=10, pady=10)
+        
+
         self.login_button = Button(self.login_frame, text="Login", command=self.login, font=('Arial', 12), bg='#4CAF50', fg='#FFFFFF', activebackground='#2E8B57', activeforeground='#FFFFFF', relief='raised', borderwidth=0)
-        self.login_button.grid(row=1, column=1, padx=10, pady=10)
+        self.login_button.grid(row=2, column=1, padx=10, pady=10)
         self.master.bind('<Return>', self.login) # Allow login with "Enter" key
         
         # User Details Frame
@@ -70,7 +74,6 @@ class BankSystem:
         
         self.current_balance_label = Label(self.user_details_frame, text="Current Balance:", **label_style)
         self.current_balance_label.grid(row=3, column=1, padx=10, pady=10)
-
 
         # Buttons
         self.view_transaction_button = Button(self.user_details_frame, text="View Transaction Log", command=self.view_transaction_log, bg="green", fg="white")
@@ -98,7 +101,7 @@ class BankSystem:
         pin = self.pin_entry.get()
         
         # Create a dictionary to store the user's data
-        user_data = {'name': name, 'age': age, 'salary': salary, 'pin': pin, 'balance': 0}
+        user_data = {'name': name, 'age': age, 'salary': salary, 'pin': pin, 'balance': 0, 'transaction_log':[]}
 
         # Add the user's data to the users dictionary
         self.users[pin] = user_data
@@ -141,14 +144,16 @@ class BankSystem:
         self.create_account_frame.pack_forget()
         self.login_frame.pack_forget()
         self.user_details_frame.pack()
-    
-        
+
+
     def login(self, event=None):
         # Get the user's PIN from the login entry widget
+        name = self.login_name_entry.get()
         pin = self.login_pin_entry.get()
+        
 
         # Check if the user exists in the users dictionary
-        if pin in self.users:
+        if pin in self.users and self.users[pin]['name'] == name:
             # Set the current user data to the user's dictionary
             self.current_user_data = self.users[pin]
 
@@ -163,66 +168,83 @@ class BankSystem:
             # pack forget login frame 
             self.login_frame.pack_forget()
             self.create_account_frame.pack_forget()
-
         else:
             # Show an error message box if the user does not exist
             messagebox.showerror("Error", "Invalid PIN")
-    
-    
+
     def deposit(self):
         # Get user input
-        pin = self.login_pin_entry.get()
+        pin = simpledialog.askstring("Deposit", "Enter PIN:")
         amount = simpledialog.askstring("Deposit", "Enter amount:")
         
         # Validate input
-        if not amount:
+        if not pin:
             return
-        if not amount.isdigit() or int(amount) <= 0:
-            messagebox.showerror("Error", "Invalid amount!")
+        if not amount or not amount.isdigit() or int(amount) <= 0:
+            messagebox.showerror("Error", "Invalid input!")
+            return
+        if pin not in self.users:
+            messagebox.showerror("Error", "Invalid PIN!")
             return
 
         # Add amount to current balance
-        self.current_balance += int(amount)
+        self.users[pin]['balance'] += int(amount)
 
         # Update current balance label
-        self.current_balance_label.config(text="Current Balance: " + str(self.current_balance))
+        self.current_balance_label.config(text="Current Balance: " + str(self.users[pin]['balance']))
 
         # Add transaction to transaction log
-        transaction = "Deposit: +" + amount + ", New Balance: " + str(self.current_balance)
+        transaction = "Deposit: +" + amount + ", New Balance: " + str(self.users[pin]['balance'])
         self.transaction_log.append(transaction)
-        self.users[pin]['balance'] = self.current_balance
+        self.users[pin]['transactions'] = self.transaction_log
 
     def withdraw(self):
         # Get user input
-        pin = self.login_pin_entry.get()
+        pin = simpledialog.askstring("PIN", "Enter your PIN:")
         amount = simpledialog.askstring("Withdraw", "Enter amount:")
+        
         # Validate input
-        if not amount:
+        if not (pin and amount):
             return
         if not amount.isdigit() or int(amount) <= 0:
             messagebox.showerror("Error", "Invalid amount!")
             return
             
+        # Check if PIN is valid
+        if pin not in self.users:
+            messagebox.showerror("Error", "Invalid PIN!")
+            return
+        
         # Check if there is enough balance
-        if int(amount) > self.current_balance:
+        current_balance = self.users[pin]['balance']
+        if int(amount) > current_balance:
             messagebox.showerror("Error", "Insufficient balance!")
             return
 
         # Subtract amount from current balance
-        self.current_balance -= int(amount)
+        current_balance -= int(amount)
+        self.users[pin]['balance'] = current_balance
 
         # Update current balance label
-        self.current_balance_label.config(text="Current Balance: " + str(self.current_balance))
+        self.current_balance_label.config(text="Current Balance: " + str(current_balance))
 
         # Add transaction to transaction log
-        transaction = "Withdraw: -" + amount + ", New Balance: " + str(self.current_balance)
+        transaction = "Withdraw: -" + amount + ", New Balance: " + str(current_balance)
         self.transaction_log.append(transaction)
-        self.users[pin]['balance'] = self.current_balance
-        
+        self.users[pin]['transactions'] = self.transaction_log
+
     def view_transaction_log(self):
         # Create transaction log window
         transaction_log_window = Toplevel(self.master)
         transaction_log_window.title("Transaction Log")
+
+        # Get current user's PIN
+        pin = self.login_pin_entry.get()
+
+        # Append transactions to user's transaction log
+        if pin in self.users:
+            self.users[pin]['transactions'].extend(self.transaction_log)
+
         # Create transaction log frame
         transaction_log_frame = Frame(transaction_log_window)
         transaction_log_frame.pack(padx=10, pady=10)
@@ -234,11 +256,15 @@ class BankSystem:
         # Create transaction log listbox
         transaction_log_listbox = Listbox(transaction_log_frame, width=50)
         transaction_log_listbox.grid(row=1, column=0, padx=10, pady=10)
-        
 
-        # Insert transactions into listbox
-        for transaction in self.transaction_log:
-            transaction_log_listbox.insert(END, transaction)
+        # Fetch and insert all transactions into listbox
+        if pin in self.users:
+            for transaction in self.users[pin]['transactions']:
+                transaction_log_listbox.insert(END, transaction)
+        else:
+            # Insert transactions into listbox
+            for transaction in self.transaction_log:
+                transaction_log_listbox.insert(END, transaction)
 
     def logout(self):
         # Clear user data
@@ -254,7 +280,6 @@ class BankSystem:
         
         # Show login frame
         self.user_details_frame.pack_forget()
-        
         self.create_account_frame.pack(pady=20)
         self.login_frame.pack()
 
@@ -270,3 +295,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+ 
