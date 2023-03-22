@@ -170,7 +170,7 @@ class BankSystem:
             self.create_account_frame.pack_forget()
         else:
             # Show an error message box if the user does not exist
-            messagebox.showerror("Error", "Invalid PIN")
+            messagebox.showerror("Error", "Invalid PIN or UserName")
 
     def deposit(self):
         # Get user input
