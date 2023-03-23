@@ -1,15 +1,23 @@
 <h1 align="center"> Bank Management System 🏦 </h1>
 
 
-|![Screenshot from 2023-03-14 14-05-57](https://user-images.githubusercontent.com/77020164/225007718-f99408d1-5e36-4668-bd47-b1008c3507f9.png)  | ![Screenshot from 2023-03-14 14-17-29](https://user-images.githubusercontent.com/77020164/225007866-fae033ba-1696-4d02-9015-8d700f87faa0.png) | ![Screenshot from 2023-03-14 14-20-59](https://user-images.githubusercontent.com/77020164/225008777-c26f5e63-9e6e-4eb6-bc9b-000de56d93aa.png)
-|-|-|-|
-| ![Screenshot from 2023-03-13 23-57-56](https://user-images.githubusercontent.com/77020164/225008029-14255003-ea79-4117-ac58-babd435b4d1a.png) | ![Screenshot from 2023-03-13 23-58-53](https://user-images.githubusercontent.com/77020164/225008278-2c693b5d-3236-476c-903a-15a244e18a32.png) | ![Screenshot from 2023-03-13 23-58-10](https://user-images.githubusercontent.com/77020164/225008123-0398e399-1fee-4dbb-91e9-13ecc9b2f9a4.png) 
+| ![Screenshot from 2023-03-21 13-34-33](https://user-images.githubusercontent.com/77020164/227250461-fdabfefc-1ab7-4b0e-97bb-e798fd3bfd64.png) | ![Screenshot from 2023-03-14 14-17-29](https://user-images.githubusercontent.com/77020164/225007866-fae033ba-1696-4d02-9015-8d700f87faa0.png) 
+|-|-|
+| ![Screenshot from 2023-03-13 23-58-53](https://user-images.githubusercontent.com/77020164/225008278-2c693b5d-3236-476c-903a-15a244e18a32.png) | ![Screenshot from 2023-03-23 20-54-29](https://user-images.githubusercontent.com/77020164/227252416-e2525b05-44db-40d1-975d-efc2de0ae2af.png)|
+| ![Screenshot from 2023-03-23 20-55-27](https://user-images.githubusercontent.com/77020164/227252530-caa81399-610f-4034-8ff6-e70911d055bc.png) | ![Screenshot from 2023-03-23 20-55-09](https://user-images.githubusercontent.com/77020164/227252707-215ccd74-30d2-4641-967a-4e5c6a3633d6.png)
+
+
+
 
 
 ## About
 The Bank Management System is a software application designed to handle various banking activities such as account creation, deposit, withdrawal, money transfer, account balance inquiry, and transaction history. It provides a user-friendly interface to customers and bank employees to manage their banking operations efficiently.
 
+## Blog
 
+Check out our project blog post for more information on the development process and our thoughts on the Bank Management project:
+
+* [Bank Management System Using Python](https://www.codingninjas.com/codestudio/library/bank-management-system-project-in-python?utm_source=github&utm_medium=organic&utm_campaign=blog-bank-management-system-project-in-python)
 
 
 ## Features
