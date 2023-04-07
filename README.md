@@ -8,7 +8,9 @@
 
 
 
+## Demo Video:
 
+[Screencast from 07-04-23 10:25:24 PM IST.webm](https://user-images.githubusercontent.com/77020164/230647483-5e9fc6f1-a9e5-4acb-9371-c75c9d9ebffb.webm)
 
 ## About
 The Bank Management System is a software application designed to handle various banking activities such as account creation, deposit, withdrawal, money transfer, account balance inquiry, and transaction history. It provides a user-friendly interface to customers and bank employees to manage their banking operations efficiently.
